@@ -1,7 +1,9 @@
 rancher-gocd-server
 =======================
 
-Builds a docker image for gocd server based in rancher-base
+Light weight Docker image for gocd server based on official `java:8-jre-alpine` image
+
+This is a fork of [rawmind/rancher-goserver](https://hub.docker.com/r/rawmind/rancher-goserver/) without the extra `confd` nor `monit` dependencies.
 
 To build:
 

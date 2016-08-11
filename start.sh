@@ -6,6 +6,8 @@ function log {
     echo `date` $ME - $@
 }
 
+RANCHER_METADATA=rancher-metadata.rancher.internal
+
 function checkrancher {
     log "checking rancher network..."
     
@@ -16,10 +18,10 @@ function checkrancher {
         sleep 1
     done
 
-    b="`ping -c 1 rancher-metadata &> /dev/null; echo $?`"
+    b="`ping -c 1 ${RANCHER_METADATA} &> /dev/null; echo $?`"
     while [ $b -eq 1 ];
     do
-        b="`ping -c 1 rancher-metadata &> /dev/null; echo $?`"
+        b="`ping -c 1 ${RANCHER_METADATA} &> /dev/null; echo $?`"
         sleep 1
     done
 }

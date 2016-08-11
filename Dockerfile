@@ -1,4 +1,4 @@
-FROM rawmind/rancher-jvm8:0.0.2
+FROM java:8-jre-alpine
 MAINTAINER Raul Sanchez <rawmind@gmail.com>
 
 # Set environment
@@ -13,8 +13,8 @@ ENV GOCD_REPO=https://download.go.cd/binaries/${GOCD_VERSION}-${GOCD_REVISION}/g
   GOCD_USER_FILE=${SERVER_WORK_DIR}/users.htpasswd
 
 # Install and configure gocd
-RUN apk add --update git apache2-utils && rm -rf /var/cache/apk/* \
-  && mkdir /var/log/go-server /var/run/go-server \
+RUN apk add --no-cache --update git curl apache2-utils && rm -rf /var/cache/apk/* \
+  && mkdir /opt /var/log/go-server /var/run/go-server \
   && cd /opt && curl -sSL ${GOCD_REPO}/${GOCD_RELEASE_ARCHIVE} -O && unzip ${GOCD_RELEASE_ARCHIVE} && rm ${GOCD_RELEASE_ARCHIVE} \
   && mv /opt/${GOCD_RELEASE}-${GOCD_VERSION} ${GOCD_HOME} \
   && chmod 774 ${GOCD_HOME}/*.sh 
