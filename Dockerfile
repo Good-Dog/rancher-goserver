@@ -1,5 +1,5 @@
-FROM java:8-jre-alpine
-MAINTAINER Raul Sanchez <rawmind@gmail.com>
+FROM openjdk:8-jre-alpine
+MAINTAINER Yun Zhi Lin <yun@yunspace.com>
 
 # Set environment
 ENV GOCD_VERSION=16.7.0 \
