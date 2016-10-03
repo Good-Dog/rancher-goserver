@@ -43,8 +43,21 @@ function saveconfig {
     fi
 }
 
+function savesshkey {
+    log "saving SSH key"
+
+    if [ ! -e "${USER_HOME}/.ssh" ]; then
+        mkdir ${USER_HOME}/.ssh
+    fi
+
+    echo "$SSH_KEY" > ${USER_HOME}/.ssh/id_rsa
+}
+
 checkrancher
 saveconfig
+savesshkey
 
 log "[ Starting gocd server... ]"
-/opt/go-server/server.sh
+exec /opt/go-server/server.sh
+
+exec "$@"

@@ -6,7 +6,8 @@ ENV GOCD_VERSION=16.7.0 \
   GOCD_RELEASE=go-server \
   GOCD_REVISION=3819 \
   GOCD_HOME=/opt/go-server \
-  PATH=$GOCD_HOME:$PATH
+  PATH=$GOCD_HOME:$PATH \
+  USER_HOME=/root
 ENV GOCD_REPO=https://download.go.cd/binaries/${GOCD_VERSION}-${GOCD_REVISION}/generic \
   GOCD_RELEASE_ARCHIVE=${GOCD_RELEASE}-${GOCD_VERSION}-${GOCD_REVISION}.zip \
   SERVER_WORK_DIR=${GOCD_HOME}/work \
@@ -20,9 +21,9 @@ RUN apk add --no-cache --update git curl bash apache2-utils openssh ca-certifica
   && chmod 774 ${GOCD_HOME}/*.sh 
 
 # Add start script
-ADD start.sh /usr/bin/start.sh
-RUN chmod +x /usr/bin/start.sh
+ADD docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+RUN chmod +x /usr/bin/docker-entrypoint.sh
 
 WORKDIR ${GOCD_HOME}
 
-ENTRYPOINT ["/usr/bin/start.sh"]
+ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
