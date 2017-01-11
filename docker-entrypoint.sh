@@ -10,7 +10,7 @@ RANCHER_METADATA=rancher-metadata.rancher.internal
 
 function checkrancher {
     log "checking rancher network..."
-    
+
     a="`ip a s dev eth0 &> /dev/null; echo $?`"
     while  [ $a -eq 1 ];
     do
@@ -28,7 +28,7 @@ function checkrancher {
 
 function saveconfig {
     log "Saving config into ${SERVER_WORK_DIR} directory..."
-    
+
     if [ ! -e "${SERVER_WORK_DIR}/config" ]; then
         mkdir ${SERVER_WORK_DIR}/config
     fi
@@ -51,7 +51,7 @@ function savesshkey {
     fi
 
     printf "$SSH_KEY" > ${USER_HOME}/.ssh/id_rsa
-    chmod 600 ${USER_HOME}/.ssh/id_rsa    
+    chmod 600 ${USER_HOME}/.ssh/id_rsa
 }
 
 function disableAuthorizedKey {
