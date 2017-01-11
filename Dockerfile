@@ -1,5 +1,5 @@
 FROM openjdk:8-jre-alpine
-MAINTAINER Yun Zhi Lin <yun@yunspace.com>
+MAINTAINER Albert Tavares de Almeida <alberttava@gmail.com>
 
 # Set environment
 ENV GOCD_VERSION=16.12.0 \
@@ -14,11 +14,11 @@ ENV GOCD_REPO=https://download.go.cd/binaries/${GOCD_VERSION}-${GOCD_REVISION}/g
   GOCD_USER_FILE=${SERVER_WORK_DIR}/users.htpasswd
 
 # Install and configure gocd
-RUN apk add --no-cache --update git curl bash apache2-utils openssh ca-certificates && rm -rf /var/cache/apk/* \
+RUN apk add --no-cache --update git curl wget bash apache2-utils openssh ca-certificates && rm -rf /var/cache/apk/* \
   && mkdir /opt /var/log/go-server /var/run/go-server \
   && cd /opt && curl -sSL ${GOCD_REPO}/${GOCD_RELEASE_ARCHIVE} -O && unzip ${GOCD_RELEASE_ARCHIVE} && rm ${GOCD_RELEASE_ARCHIVE} \
   && mv /opt/${GOCD_RELEASE}-${GOCD_VERSION} ${GOCD_HOME} \
-  && chmod 774 ${GOCD_HOME}/*.sh 
+  && chmod 774 ${GOCD_HOME}/*.sh
 
 # Add start script
 ADD docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
